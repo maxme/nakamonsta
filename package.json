@@ -1,0 +1,129 @@
+{
+  "name": "nakamonsta",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "solidity:test": "truffle test",
+    "solidity:lint": "solhint \"contracts/**/*.sol\"",
+    "web:lint": "yarn eslint src/",
+    "web:build": "truffle compile && node scripts/build.js",
+    "web:test": "jest --env=jsdom",
+    "migrate": "truffle migrate",
+    "start": "node scripts/start.js",
+    "lint": "yarn solidity:lint && yarn web:lint",
+    "clean": "rm -rf build/",
+    "populate": "truffle exec scripts/populate.js",
+    "fullstart": "yarn clean && yarn migrate && yarn populate && yarn start",
+    "test": "yarn solidity:test && yarn web:test"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint",
+      "pre-push": "yarn test"
+    }
+  },
+  "dependencies": {
+    "@material-ui/core": "^3.5.1",
+    "autoprefixer": "^9.3.1",
+    "babel-core": "6.26.0",
+    "babel-eslint": "7.2.3",
+    "babel-jest": "20.0.3",
+    "babel-loader": "7.1.2",
+    "babel-preset-react-app": "^3.1.1",
+    "babel-runtime": "6.26.0",
+    "case-sensitive-paths-webpack-plugin": "^2.1.2",
+    "chrono-node": "^1.3.5",
+    "classnames": "^2.2.6",
+    "css-loader": "^1.0.1",
+    "drizzle": "^1.2.5",
+    "drizzle-react": "^1.1.1",
+    "drizzle-react-components": "^1.2.0",
+    "eth-block-tracker-es5": "^2.3.2",
+    "ethereumjs-util": "^6.0.0",
+    "extract-text-webpack-plugin": "3.0.2",
+    "file-loader": "^2.0.0",
+    "fs-extra": "3.0.1",
+    "html-webpack-plugin": "2.29.0",
+    "moment": "^2.22.2",
+    "postcss-flexbugs-fixes": "^4.1.0",
+    "postcss-loader": "^3.0.0",
+    "raf": "^3.4.1",
+    "react": "^16.4.1",
+    "react-dev-utils": "^5.0.1",
+    "react-dom": "^16.4.1",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-router-redux": "^4.0.8",
+    "redux": "^4.0.0",
+    "redux-auth-wrapper": "^2.0.3",
+    "redux-saga": "^0.16.0",
+    "redux-thunk": "^2.3.0",
+    "style-loader": "^0.23.1",
+    "truffle-contract": "^3.0.6",
+    "truffle-hdwallet-provider": "^0.0.6",
+    "url-loader": "^1.1.2",
+    "web3": "^1.0.0-beta.36",
+    "webpack": "3.8.1",
+    "webpack-dev-server": "2.9.4",
+    "webpack-manifest-plugin": "1.3.2"
+  },
+  "devDependencies": {
+    "eslint": "4.10.0",
+    "eslint-config-react-app": "^2.1.0",
+    "eslint-loader": "1.9.0",
+    "eslint-plugin-flowtype": "2.39.1",
+    "eslint-plugin-import": "2.8.0",
+    "eslint-plugin-jsx-a11y": "5.1.1",
+    "eslint-plugin-react": "7.4.0",
+    "husky": "^1.1.1",
+    "jest": "20.0.4",
+    "openzeppelin-solidity": "^2.0.0",
+    "react-test-renderer": "^16.6.3",
+    "solhint": "^1.3.0",
+    "underscore": "^1.9.1"
+  },
+  "babel": {
+    "presets": [
+      "react-app"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,mjs}"
+    ],
+    "setupFiles": [
+      "<rootDir>/config/polyfills.js"
+    ],
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
+      "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs}"
+    ],
+    "testEnvironment": "node",
+    "testURL": "http://localhost",
+    "transform": {
+      "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
+      "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
+    ],
+    "moduleNameMapper": {
+      "^react-native$": "react-native-web"
+    },
+    "moduleFileExtensions": [
+      "web.js",
+      "js",
+      "json",
+      "web.jsx",
+      "jsx",
+      "node",
+      "mjs"
+    ]
+  }
+}

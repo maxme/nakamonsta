@@ -1,0 +1,14 @@
+body {
+  font-family: "Open Sans", sans-serif;
+  margin: 0;
+}
+
+.content {
+  width: calc(100% - 60px);
+  margin: 0 auto;
+}
+
+.loading-screen {
+  width: 70%;
+  margin: 100px auto;
+}
