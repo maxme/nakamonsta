@@ -1,6 +1,6 @@
 const NakamonstaAuction = artifacts.require("./NakamonstaAuction.sol");
 const crypto = require("crypto");
-const utils = require("web3").utils;
+const utils = web3.utils;
 
 function bigNumberToHexPadded(bigNumber, size) {
   var bnHex = utils.toHex(bigNumber);
@@ -9,11 +9,13 @@ function bigNumberToHexPadded(bigNumber, size) {
   return "0x" + "0".repeat(size - bnHex.length) + bnHex;
 }
 
-function createGen0(contract, name, genes) {
-  console.log("Create a new Nakamonsta - transfer it to: " + web3.eth.accounts[0]);
+async function createGen0(contract, name, genes) {
+  const accounts = await web3.eth.getAccounts();
+
+  console.log("Create a new Nakamonsta - transfer it to: " + accounts[0]);
   console.log("Genes: " + bigNumberToHexPadded(genes, 64));
 
-  contract.createGen0Nakamonsta(web3.eth.accounts[0], name, genes);
+  contract.createGen0Nakamonsta(accounts[0], name, genes);
 }
 
 function randomGene(minValue, maxValue) {
@@ -105,33 +107,32 @@ function randomChromosome() {
 async function createSomeRandomGen1(max) {
   var contract = await NakamonstaAuction.deployed();
   for (var i = 0; i < max; i++) {
-    createGen0(contract, getRandomName(), new web3.BigNumber(randomChromosome()));
+    createGen0(contract, getRandomName(), randomChromosome());
   }
 }
 
 async function transferSomeToAccount1() {
   var contract = await NakamonstaAuction.deployed();
-  console.log(
-    "Transfering some tokens from : " + web3.eth.accounts[0] + " To " + web3.eth.accounts[1]
-  );
+  const accounts = await web3.eth.getAccounts();
+  console.log("Transfering some tokens from : " + accounts[0] + " To " + accounts[1]);
 
-  contract.transferFrom(web3.eth.accounts[0], web3.eth.accounts[1], 2);
-  contract.transferFrom(web3.eth.accounts[0], web3.eth.accounts[1], 3);
-  contract.transferFrom(web3.eth.accounts[0], web3.eth.accounts[1], 6);
-  contract.transferFrom(web3.eth.accounts[0], web3.eth.accounts[1], 7);
-  contract.transferFrom(web3.eth.accounts[0], web3.eth.accounts[1], 11);
+  contract.transferFrom(accounts[0], accounts[1], 2);
+  contract.transferFrom(accounts[0], accounts[1], 3);
+  contract.transferFrom(accounts[0], accounts[1], 6);
+  contract.transferFrom(accounts[0], accounts[1], 7);
+  contract.transferFrom(accounts[0], accounts[1], 11);
 }
 
 async function createAnAuctionFor(nakamonstaId) {
   var contract = await NakamonstaAuction.deployed();
-  const startPrice = web3.toWei(1, "ether");
-  await contract.createAuction(nakamonstaId, startPrice, 2 * startPrice, 100000);
+  const startPrice = utils.toWei("1", "ether");
+  await contract.createAuction(nakamonstaId, startPrice, startPrice, 1000000);
   console.log("Create an auction on: " + nakamonstaId);
 }
 
 async function mate(fatherId, motherId) {
   var contract = await NakamonstaAuction.deployed();
-  await contract.mate(fatherId, motherId, { value: web3.toWei("0.01", "ether") });
+  await contract.mate(fatherId, motherId, { value: utils.toWei("0.01", "ether") });
   console.log("A baby is born");
 }
 

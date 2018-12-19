@@ -13,14 +13,14 @@
     "start": "node scripts/start.js",
     "lint": "yarn solidity:lint && yarn web:lint",
     "clean": "rm -rf build/",
+    "prepopulate": "truffle version | grep -i truffle | grep v5. || (echo You must use Truffle version 5.x.x; exit 1)",
     "populate": "truffle exec scripts/populate.js",
     "fullstart": "yarn clean && yarn migrate && yarn populate && yarn start",
     "test": "yarn solidity:test && yarn web:test"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint",
-      "pre-push": "yarn test"
+      "pre-commit": "yarn lint"
     }
   },
   "dependencies": {
